@@ -2,9 +2,10 @@
 # @Author: aaronlai
 # @Date:   2016-11-11 18:10:00
 # @Last Modified by:   AaronLai
-# @Last Modified time: 2016-11-12 00:55:05
+# @Last Modified time: 2016-11-12 12:09:33
 
 import pandas as pd
+import numpy as np
 import json
 import re
 
@@ -70,7 +71,8 @@ def clean_words(sentence, dictionary, result):
 def load_train_data(ques_file, choice_file, cap_file, base_dir='./rawdata/'):
     """loading training data as a dictionary"""
     train_ques = pd.read_csv(base_dir + ques_file, sep='\t')
-    train_choices = pd.read_csv(base_dir + choice_file, sep='\t').set_index('q_id')
+    train_choices = pd.read_csv(base_dir + choice_file, sep='\t')
+    train_choices = train_choices.set_index('q_id')
 
     with open(base_dir + cap_file) as file:
         caps_dict = json.load(file)
@@ -95,13 +97,14 @@ def load_train_data(ques_file, choice_file, cap_file, base_dir='./rawdata/'):
 
 def clean_data(data, wordvec_file, base_dir='./rawdata'):
     """trainform data into words in dictionary"""
-    wordvec = pd.read_csv(base_dir + wordvec_file, sep=' ', header=None, index_col=0)
+    wordvec = pd.read_csv(base_dir + wordvec_file, sep=' ', header=None,
+                          index_col=0)
     dictionary = defaultdict(int)
     for w in wordvec.index.values:
         dictionary[w] = 1
 
     result_data = {}
-    N = 0
+
     for qid, data_dict in data.items():
         result_dict = {}
 
@@ -115,17 +118,13 @@ def clean_data(data, wordvec_file, base_dir='./rawdata'):
             choi_vec = clean_words(choice, dictionary, [])
             choices_vec.append(choi_vec)
 
-        result_dict['choices'] = choices_vec 
+        result_dict['choices'] = choices_vec
 
         # vectorize caption
         caption_vec = clean_words(data_dict['caption'], dictionary, [])
         result_dict['caption'] = caption_vec
 
         result_data[qid] = result_dict
-
-        N += 1
-        if N % 50 == 49:
-            print(N)
 
     return result_data
 

@@ -9,7 +9,9 @@ About
 
 This is the final project of the course [**Machine Learning and having it deep and structured**](http://nol.ntu.edu.tw/nol/coursesearch/print_table.php?course_id=942%20U0590&class=&dpt_code=9210&ser_no=51785&semester=104-1&lang=EN) of National Taiwan University (offered by [**Hung-yi Lee**](http://speech.ee.ntu.edu.tw/~tlkagk/index.html)):
 
-Need to build an AI system to answer multiple choices question according to their corresponding images. An example is shown below:
+**Task**: Need to build an AI system to answer multiple choices question according to their corresponding images.
+
+An example is shown below:
 
 ![overview](https://github.com/AaronYALai/Visual_Question_Answering/blob/master/img.png)
 
@@ -47,7 +49,7 @@ Training and predicting:
 
 This method originally trained on 146,962 questions (82,783 pictures), predicted on 72,802 questions (40,504 pictures) and reached about 82% accuracy.
 
-#### kaggle page: [link](https://inclass.kaggle.com/c/104-1-mlds-final-project) (competed as **importeverything**)
+#### kaggle page: [link](https://inclass.kaggle.com/c/104-1-mlds-final-project) (competed as *importeverything*)
 
 #### Reference: [**GloVe**](http://nlp.stanford.edu/projects/glove/), [**Captions (COCO)**](http://mscoco.org/dataset/#download), [**Keras**](http://keras.io/)
 

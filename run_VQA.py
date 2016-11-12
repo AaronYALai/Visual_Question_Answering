@@ -2,7 +2,7 @@
 # @Author: aaronlai
 # @Date:   2016-11-11 16:45:09
 # @Last Modified by:   AaronLai
-# @Last Modified time: 2016-11-12 13:01:15
+# @Last Modified time: 2016-11-12 13:37:12
 
 import pandas as pd
 import numpy as np
@@ -163,9 +163,9 @@ def run_VQA(ques_file, choice_file, cap_file, ans_file, wordvec_file,
 
 def main():
     run_VQA('train_questions', 'train_choices', 'train_captions.json',
-            'train_ans_sol', 'glove_300d.csv', n_hidden=2, neurons=256,
-            dropout=0.4, lr=1e-3, batch_size=32, valid_ratio=0.2,
-            nb_epoch=20, weight=3)
+            'train_ans_sol', 'glove_300d.csv', n_hidden=2, neurons=128,
+            dropout=0.4, lr=1e-3, batch_size=28, valid_ratio=0.2,
+            nb_epoch=20, weight=2)
 
 
 if __name__ == '__main__':

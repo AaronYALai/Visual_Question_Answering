@@ -2,7 +2,7 @@
 # @Author: aaronlai
 # @Date:   2016-11-11 16:45:09
 # @Last Modified by:   AaronLai
-# @Last Modified time: 2016-11-12 12:26:20
+# @Last Modified time: 2016-11-12 13:01:15
 
 import pandas as pd
 import numpy as np
@@ -101,7 +101,7 @@ def predict_accuracy(model, X, train_vec, questions):
 def run_VQA(ques_file, choice_file, cap_file, ans_file, wordvec_file,
             n_hidden=2, neurons=128, dropout=0.2, lr=1e-3, batch_size=32,
             valid_ratio=0.2, nb_epoch=10, momentum=0.95, activ='relu',
-            base_dir='./rawdata/'):
+            base_dir='./rawdata/', weight=1):
     """building a model to answer visual questions"""
     print('Start:')
 
@@ -136,7 +136,19 @@ def run_VQA(ques_file, choice_file, cap_file, ans_file, wordvec_file,
                             n_hidden, neurons, lr, momentum, dropout, activ)
 
     print('\tDone constructing model. Start training ...')
-    model.fit(train_X, train_y, batch_size, nb_epoch, shuffle=True, verbose=1,
+    if int(weight) > 1:
+        x_pos = train_X[train_y[:, 1] == 1]
+        y_pos = train_y[train_y[:, 1] == 1]
+
+        new_X = [train_X] + [x_pos for i in range(int(weight) - 1)]
+        new_y = [train_y] + [y_pos for i in range(int(weight) - 1)]
+
+        X = np.vstack(tuple(new_X))
+        y = np.vstack(tuple(new_y))
+    else:
+        X, y = train_X, train_y
+
+    model.fit(X, y, batch_size, nb_epoch, shuffle=True, verbose=1,
               validation_data=(valid_X, valid_y))
 
     print('\nStart predicting...')
@@ -152,8 +164,8 @@ def run_VQA(ques_file, choice_file, cap_file, ans_file, wordvec_file,
 def main():
     run_VQA('train_questions', 'train_choices', 'train_captions.json',
             'train_ans_sol', 'glove_300d.csv', n_hidden=2, neurons=256,
-            dropout=0.4, lr=1e-3, batch_size=16, valid_ratio=0.2,
-            nb_epoch=15)
+            dropout=0.4, lr=1e-3, batch_size=32, valid_ratio=0.2,
+            nb_epoch=20, weight=3)
 
 
 if __name__ == '__main__':

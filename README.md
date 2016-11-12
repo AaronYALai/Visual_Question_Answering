@@ -15,7 +15,7 @@ Need to build an AI system to answer multiple choices question according to thei
 
 The answer is **(C)bananas**. This task includes solving a number of sub-problems in Natural Language Processing and Computer Vision. The system needs to localize the subject being referenced (something being sold), and needs to detect objects (bananas).
 
-more information: [slides](https://docs.google.com/presentation/d/1xJkR75dLPlNs7RI3jtdNLEEyVETk6sZK3OyoN6yKx-M/edit#slide=id.gf3906c444_190_0)
+More information: [slides](https://docs.google.com/presentation/d/1xJkR75dLPlNs7RI3jtdNLEEyVETk6sZK3OyoN6yKx-M/edit#slide=id.gf3906c444_190_0)
 
 Model Details
 --------
@@ -45,6 +45,10 @@ Training and predicting:
 - Train the DNN by Nesterov Accelerated Gradient (NAG).
 - Double or triple the training instances whose choice is right (y = [0, 1]) and train the model again.
 
+This method originally trained on 146,962 questions (82,783 pictures), predicted on 72,802 questions (40,504 pictures) and reached about 82% accuracy.
+
+#### kaggle page: [link](https://inclass.kaggle.com/c/104-1-mlds-final-project) (competed as **importeverything**)
+
 #### Reference: [**GloVe**](http://nlp.stanford.edu/projects/glove/), [**Captions (COCO)**](http://mscoco.org/dataset/#download), [**Keras**](http://keras.io/)
 
 Usage
@@ -64,5 +68,3 @@ Install all dependencies and train agents:
     pip install -r requirements.txt
 
     python run_VQA.py
-
-#### kaggle page: [link](https://inclass.kaggle.com/c/104-1-mlds-final-project) (competed as **importeverything**)
